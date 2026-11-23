@@ -1,101 +1,237 @@
 <!DOCTYPE html>
 <html lang="ru">
- <head>
-  <title>Миньоны: всё о любимых героях</title>
-  <link rel="stylesheet" href="style.css">
- </head>
- <main>
- <header> 
-  <p><h1>Все о любимых героях </h1></p>
+  <head>
+    <meta charset="UTF-8">
+    <title>Миньоны: всё о любимых героях</title>
+    <style>
+      * { box-sizing: border-box; }
+
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background: #fdf6e3;
+        color: #333;
+      }
+
+      header {
+        background: #ffd700;
+        padding: 1.5rem;
+        text-align: center;
+      }
+
+      h1 { margin: 0; }
+
+      /* Меню навигации по страницам */
+      .menu {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+        background: #fff;
+        padding: 0.75rem;
+        border-bottom: 2px solid #ffd700;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      .menu a {
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+        padding: 0.4rem 1rem;
+        border-radius: 20px;
+        transition: background 0.3s;
+        cursor: pointer;
+      }
+
+      .menu a:hover { background: #ffe97a; }
+      .menu a.active { background: #ffd700; }
+
+      main {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 1.5rem;
+      }
+
+      /* Страницы: видна только активная */
+      .page { display: none; }
+      .page.visible { display: block; }
+
+      section {
+        background: #fff;
+        border-radius: 10px;
+        padding: 1rem 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      }
+
+      img {
+        max-width: 200px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        margin: 0.5rem 0;
+      }
+
+      .links a {
+        color: #b8860b;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      footer {
+        text-align: center;
+        padding: 1rem;
+        color: #777;
+        border-top: 1px solid #ccc;
+      }
+    </style>
+  </head>
   <body>
-  <h2><a href= 'https://ru.wikipedia.org/wiki/%D0%9C%D0%B8%D0%BD%D1%8C%D0%BE%D0%BD%D1%8B_(%D0%BC%D1%83%D0%BB%D1%8C%D1%82%D1%84%D0%B8%D0%BB%D1%8C%D0%BC)'>Познакомьтесь с миньонами! </a>
-  <h3>Самые забавные и преданные помощники в мире кино. Узнайте всё о них: от истории создания до любимых лакомств.</h3>
-
-    <h2>Кто такие миньоны?</h2>
-            <p><strong>Миньоны</strong> — это маленькие жёлтые существа, которые служат <i>злодеям,</i> но на самом деле хотят просто <i>веселиться и есть бананы.</i> Они говорят на своём уникальном языке, который сочетает в себе элементы английского, испанского, корейского и других языков. Их главная цель — найти самого крутого злодея и служить ему верой и правдой.</p>
-
-<h2>Главные миньоны</h2>
-<h3>Кевин</h3>
-<p>Лидер группы, самый высокий и ответственный. Всегда старается держать всё под контролем.</p>
-<img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu2YVEd9M0y4THQZd221-7luVtifhX4wzcAFKgHZlvhg&s=10"> 
-<h3>Боб</h3>
-<p>Самый милый и наивный миньон. Обожает всё пушистое и всегда готов помочь друзьям.</p>
-<img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNxlxqX4cknJal7WMPVbmeHHnecn5PRRTnLMf82NWoeg&s=10"> 
-<h3>Стюард</h3>
-<p>Весёлый и беззаботный миньон. Любит бананы, видеоигры и немного бунтует против правил.</p>
-<img src = "https://static.wikia.nocookie.net/despicableme/images/4/47/MTROG_Stuart.png/revision/latest?cb=20220101205245"> 
- <hr> <h2>Интересные факты о миньонах</h2>
-            <ul class="facts-list">
-                <li><strong>Язык миньонов:</strong> придуман специально для мультфильма и не является реальным языком.</li>
-                <li><strong>Бананы:</strong> любимое лакомство миньонов, они готовы ради них на всё.</li>
-                <li><strong>Количество глаз:</strong> у миньонов может быть один или два глаза — это их отличительная черта.</li>
-                <li><strong>Рост:</strong> каждый миньон примерно 1 метр в высоту.</li>
-                <li><strong>Озвучивание:</strong> голоса миньонов созданы с помощью ускоренной речи актёров.</li>
-            </ul>
-
     <header>
-      <h1>Фильмы про миньонов</h1>
+      <h1>Всё о любимых героях: миньоны</h1>
     </header>
 
-    <nav>
-      <a href="index.html">← Назад: О миньонах</a> |
-      <a href="merch.html">Вперёд: Мерч и игры →</a>
+    <!-- Меню: пересылки между страницами -->
+    <nav class="menu">
+      <a data-page="home" class="active">Главная</a>
+      <a data-page="movies">Фильмы</a>
+      <a data-page="merch">Мерч и игры</a>
     </nav>
 
     <main>
-      <section>
-        <h2>Хронология фильмов</h2>
-        <ol>
-          <li>«Гадкий я» (2010) — первое появление миньонов.</li>
-          <li>«Гадкий я 2» (2013) — новые приключения и развитие персонажей.</li>
-          <li>«Миньоны» (2015) — история происхождения миньонов до встречи с Грю.</li>
-          <li>«Гадкий я 3» (2017) — новая угроза и любимые шутки миньонов.</li>
-          <li>«Миньоны: Грювитация» (2022) — молодой Грю и новые проделки миньонов.</li>
-        </ol>
-      </section>
 
-      <section>
-        <h2>Что делает франшизу особенной</h2>
-        <p>Франшиза «Гадкий я» и спин‑оффы про миньонов стали культовыми благодаря сочетанию юмора, узнаваемого стиля и простых, но цепляющих историй. Миньоны стали отдельным феноменом поп‑культуры: их фразы и жесты узнают даже те, кто не смотрел фильмы.</p>
-      </section>
+      <!-- СТРАНИЦА 1: Главная -->
+      <div class="page visible" id="page-home">
+        <section>
+          <h2>Кто такие миньоны?</h2>
+          <p><strong>Миньоны</strong> — это маленькие жёлтые существа, которые служат <i>злодеям</i>, но на самом деле хотят просто <i>веселиться и есть бананы</i>. Они говорят на своём уникальном языке, который сочетает элементы английского, испанского, корейского и других языков. Их главная цель — найти самого крутого злодея и служить ему верой и правдой.</p>
+        </section>
 
-<header>
-      <h1>Мерч и игры с миньонами</h1>
-    </header>
+        <section>
+          <h2>Главные миньоны</h2>
+          <article>
+            <h3>Кевин</h3>
+            <p>Лидер группы, самый высокий и ответственный. Всегда старается держать всё под контролем.</p>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu2YVEd9M0y4THQZd221-7luVtifhX4wzcAFKgHZlvhg&s=10" alt="Кевин">
+          </article>
+          <article>
+            <h3>Боб</h3>
+            <p>Самый милый и наивный миньон. Обожает всё пушистое и всегда готов помочь друзьям.</p>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNxlxqX4cknJal7WMPVbmeHHnecn5PRRTnLMf82NWoeg&s=10" alt="Боб">
+          </article>
+          <article>
+            <h3>Стюарт</h3>
+            <p>Весёлый и беззаботный миньон. Любит бананы, видеоигры и немного бунтует против правил.</p>
+            <img src="https://static.wikia.nocookie.net/despicableme/images/4/47/MTROG_Stuart.png/revision/latest?cb=20220101205245" alt="Стюарт">
+          </article>
+        </section>
 
-    <nav>
-      <a href="movies.html">← Назад: Фильмы</a> |
-      <a href="index.html">На главную →</a>
-    </nav>
+        <section>
+          <h2>Интересные факты о миньонах</h2>
+          <ul>
+            <li><strong>Язык миньонов:</strong> придуман специально для мультфильма и не является реальным языком.</li>
+            <li><strong>Бананы:</strong> любимое лакомство миньонов, они готовы ради них на всё.</li>
+            <li><strong>Количество глаз:</strong> у миньонов может быть один или два глаза — это их отличительная черта.</li>
+            <li><strong>Рост:</strong> каждый миньон примерно 1 метр в высоту.</li>
+            <li><strong>Озвучивание:</strong> голоса миньонов созданы с помощью ускоренной речи актёров.</li>
+          </ul>
+        </section>
 
-    <main>
-      <section>
-        <h2>Популярные виды мерча</h2>
-        <ul>
-          <li>Плюшевые игрушки миньонов (Кевин, Боб, Стюарт) — самый ходовой товар.</li>
-          <li>Одежда и аксессуары: футболки, кепки, рюкзаки с принтами.</li>
-          <li>Коллекционные фигурки и наборы LEGO по мотивам фильмов.</li>
-          <li>Посуда и канцелярия: кружки, пеналы, наклейки.</li>
-        </ul>
-      </section>
+        <section class="links">
+          <h2>Что посмотреть дальше?</h2>
+          <p>👉 Перейдите на страницу <a onclick="showPage('movies')">«Фильмы»</a>, чтобы узнать хронологию всей франшизы.</p>
+          <p>👉 Или загляните в раздел <a onclick="showPage('merch')">«Мерч и игры»</a> — там про игрушки, одежду и видеоигры.</p>
+        </section>
+      </div>
 
-      <section>
-        <h2>Игры и приложения</h2>
-        <p>По мотивам франшизы выпущено множество мобильных и консольных игр, где можно управлять миньонами, собирать бананы и проходить уровни с юмором в стиле фильмов. В некоторых играх есть мини‑квесты и коллекционные предметы.</p>
-      </section>
+      <!-- СТРАНИЦА 2: Фильмы -->
+      <div class="page" id="page-movies">
+        <section>
+          <h2>Хронология франшизы</h2>
+          <ol>
+            <li>«Гадкий я» (2010) — первое появление миньонов на экране.</li>
+            <li>«Гадкий я 2» (2013) — новые приключения и развитие персонажей.</li>
+            <li>«Миньоны» (2015) — история происхождения миньонов до встречи с Грю.</li>
+            <li>«Гадкий я 3» (2017) — новая угроза и любимые шутки миньонов.</li>
+            <li>«Миньоны: Грювитация» (2022) — молодой Грю и новые проделки миньонов.</li>
+            <li>«Гадкий я 4» (2024) — семья Грю и очередные выходки миньонов.</li>
+          </ol>
+        </section>
 
-      <section>
-        <h2>Идеи для творчества</h2>
-        <p>Если хочешь сделать что‑то своими руками, вот несколько идей:</p>
-        <ul>
-          <li>Нарисовать своего миньона в стиле мультфильма.</li>
-          <li>Сделать костюм миньона из жёлтой футболки и очков.</li>
-          <li>Создать коллаж из любимых кадров с миньонами.</li>
-        </ul>
-      </section>
-  </main>
-<footer>
-  <p>Все права защищены @polinalovesminions</p>
-</footer>
-      </body>
-      </html>
+        <section>
+          <h2>Что делает франшизу особенной</h2>
+          <p>Фильмы про миньонов стали культовыми благодаря сочетанию юмора, узнаваемого стиля и простых, но цепляющих историй. Миньоны превратились в отдельный феномен поп-культуры: их фразы и жесты узнают даже те, кто не смотрел фильмы.</p>
+        </section>
+
+        <section class="links">
+          <h2>Продолжить путешествие</h2>
+          <p>👉 Вернитесь на <a onclick="showPage('home')">главную страницу</a>, чтобы вспомнить, кто такие миньоны.</p>
+          <p>👉 Смотрите также раздел <a onclick="showPage('merch')">«Мерч и игры»</a>.</p>
+        </section>
+      </div>
+
+      <!-- СТРАНИЦА 3: Мерч и игры -->
+      <div class="page" id="page-merch">
+        <section>
+          <h2>Популярные виды мерча</h2>
+          <ul>
+            <li>Плюшевые игрушки миньонов (Кевин, Боб, Стюарт) — самый ходовой товар.</li>
+            <li>Одежда и аксессуары: футболки, кепки, рюкзаки с принтами.</li>
+            <li>Коллекционные фигурки и наборы LEGO по мотивам фильмов.</li>
+            <li>Посуда и канцелярия: кружки, пеналы, наклейки.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Игры и приложения</h2>
+          <p>По мотивам франшизы выпущено множество мобильных и консольных игр, где можно управлять миньонами, собирать бананы и проходить уровни в юмористическом стиле фильмов.</p>
+        </section>
+
+        <section>
+          <h2>Идеи для творчества</h2>
+          <ul>
+            <li>Нарисовать своего миньона в стиле мультфильма.</li>
+            <li>Сделать костюм миньона из жёлтой футболки и очков.</li>
+            <li>Создать коллаж из любимых кадров с миньонами.</li>
+          </ul>
+        </section>
+
+        <section class="links">
+          <h2>Продолжить путешествие</h2>
+          <p>👉 Узнайте сначала, <a onclick="showPage('home')">кто такие миньоны</a>, на главной странице.</p>
+          <p>👉 А потом посмотрите <a onclick="showPage('movies')">«Фильмы»</a>.</p>
+        </section>
+      </div>
+
+    </main>
+
+    <footer>
+      <p>Все права защищены @polinalovesminions</p>
+    </footer>
+
+    <script>
+      // Переключение страниц: показывает нужный блок и прячет остальные
+      function showPage(name) {
+        document.querySelectorAll('.page').forEach(function (page) {
+          page.classList.remove('visible');
+        });
+        document.getElementById('page-' + name).classList.add('visible');
+
+        document.querySelectorAll('.menu a').forEach(function (link) {
+          link.classList.toggle('active', link.dataset.page === name);
+        });
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      // Пересылки из меню
+      document.querySelectorAll('.menu a').forEach(function (link) {
+        link.addEventListener('click', function () {
+          showPage(this.dataset.page);
+        });
+      });
+    </script>
+  </body>
+</html>
+
